@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Cat.destroy_all
+COLOR = %w(black white orange brown)
+SEX = %w(M F)
+99.times do
+  Cat.create(name: Faker::Name.unique.name, color: COLOR.sample, birth_date: '19/4/2017', sex: SEX.sample)
+end

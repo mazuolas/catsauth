@@ -1,9 +1,9 @@
 <h1>Cats upon cats!</h1>
 
-<ul>
+<ol>
   <% @cats.each do |cat| %>
     <li><%= link_to cat.name, cat_url(cat) %></li>
   <% end %>
-</ul>
+</ol>
 
 <%= link_to "Create cat", new_cat_url %>
