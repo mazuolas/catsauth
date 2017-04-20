@@ -16,15 +16,16 @@
 <%= link_to "Edit #{@cat.name}", edit_cat_url(@cat) %>
 
 <h2>Rental Requests</h2>
+<br>
+
 <table>
   <tr>
     <th>Start Date</th>
     <th>End Date</th>
+    <th style='color:red'>Lonely Person</th>
     <th>Status</th>
   </tr>
-  <% if @cat.owner == current_user %>
     <% @cat.rental_requests.order("start_date").each do |req| %>
       <%= render "req_tr", req: req %>
     <% end %>
-  <% end %>
 </table>
