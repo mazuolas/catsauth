@@ -13,7 +13,9 @@
   <% end %>
 </head>
 <body>
-
+  <% if flash[:errors] %>
+    <i><h1 style="color:red"><%= flash[:errors] %></h1></i>
+  <% end %>
 <%= yield %>
 
 </body>

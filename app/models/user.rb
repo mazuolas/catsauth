@@ -11,6 +11,8 @@
 #
 
 class User < ActiveRecord::Base
+  has_many :cats
+
   validates :user_name, :password_digest, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
   validates :user_name, uniqueness: true

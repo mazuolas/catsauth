@@ -10,12 +10,20 @@ class CatsController < ApplicationController
   end
 
   def new
-    @cat = Cat.new
-    render :new
+    unless current_user
+      flash[:errors] = ["log in fool"]
+      redirect_to new_sessions_url
+    else
+      @cat = Cat.new
+      render :new
+    end
   end
 
   def create
+
     @cat = Cat.new(cat_params)
+    @cat.user_id = current_user.id
+
     if @cat.save
       redirect_to cat_url(@cat)
     else
@@ -26,11 +34,22 @@ class CatsController < ApplicationController
 
   def edit
     @cat = Cat.find(params[:id])
-    render :edit
+    if @cat.owner == current_user
+      render :edit
+    else
+      flash[:errors] = ["you can't edit cats that dont love you"]
+      redirect_to cat_url(@cat)
+    end
   end
 
   def update
     @cat = Cat.find(params[:id])
+    unless @cat.owner == current_user
+      redirect_to cat_url(@cat)
+      flash[:errors] = ["you can't update cats that dont love you"]
+      return
+    end
+    
     if @cat.update_attributes(cat_params)
       redirect_to cat_url(@cat)
     else
